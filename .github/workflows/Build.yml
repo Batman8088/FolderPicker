@@ -14,4 +14,4 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: FolderPickerFix-dylib
-          path: .theos/obj/debug/FolderPickerFix.dylib
+          path: .theos/obj/**/FolderPickerFix.dylib
