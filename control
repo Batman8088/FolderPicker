@@ -1,7 +1,7 @@
 Package: com.custom.folderpickerfix
 Name: FolderPickerFix
 Version: 1.0.0
-Architecture: iphoneos-arm64
+Architecture: iphoneos-arm64e
 Description: Custom dylib for UIDocumentPickerViewController
 Maintainer: Custom
 Author: Custom
