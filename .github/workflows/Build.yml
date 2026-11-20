@@ -1,0 +1,17 @@
+name: Build Dylib
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Theos
+        uses: Randomblock1/theos-action@v1
+      - name: Compile Dylib
+        run: make
+      - name: Upload Dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: FolderPickerFix-dylib
+          path: .theos/obj/debug/FolderPickerFix.dylib
