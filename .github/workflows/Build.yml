@@ -9,14 +9,14 @@ jobs:
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
       - name: Compile Dylib
-        run: make
+         run: make
       - name: Upload Dylib
         uses: actions/upload-artifact@v5
         with:
         name: 
         path: .theos/obj/**/FolderPickerFix.dylib
-        name: Download build artifact
-        uses: actions/download-artifact@v5
+      - name: Download build artifact
+      - uses: actions/download-artifact@v5
         with:
-        name: FolderPickerFix-dylib
+      - name: Download Dylib
         path: ./downloaded-files
