@@ -13,5 +13,10 @@ jobs:
       - name: Upload Dylib
         uses: actions/upload-artifact@v5
         with:
-          name: FolderPickerFix-dylib
-          path: .theos/obj/**/FolderPickerFix.dylib
+        name: 
+        path: .theos/obj/**/FolderPickerFix.dylib
+        name: Download build artifact
+        uses: actions/download-artifact@v5
+        with:
+        name: FolderPickerFix-dylib
+        path: ./downloaded-files
