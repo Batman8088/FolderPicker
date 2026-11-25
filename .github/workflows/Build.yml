@@ -30,7 +30,7 @@ jobs:
         run: |
           make package
           mkdir -p build
-          find .theos/obj -name "FolderPickerHook.dylib" -exec cp {} build/ \;
+          find .theos/obj -name "FolderPickerfix.dylib" -exec cp {} build/ \;
           cp packages/*.deb build/
 
       - name: Publish to Releases
@@ -39,5 +39,5 @@ jobs:
           tag_name: latest-build
           name: Latest Compiled Dylib
           files: |
-            build/FolderPickerHook.dylib
+            build/FolderPickerfix.dylib
             build/*.deb
