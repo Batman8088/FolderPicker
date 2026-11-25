@@ -1,30 +1,47 @@
-name: Build Dylib
-on: [push]
+name: Build and Save Deb Repo
+
+on:
+  push:
+    branches: [ main, master ]
+    paths-ignore:
+      - 'repo/**'
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
+
+      - name: Install Packaging Tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev fakeroot bzip2 gzip
 
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
 
-      - name: Compile Dylib
-        run: make
+      - name: Compile Deb
+        run: |
+          MAKEFILE_DIR=$(dirname "$(find . -maxdepth 3 -name 'Makefile' | head -n 1)")
+          cd "$MAKEFILE_DIR"
+          make package FINALPACKAGE=1
 
-      - name: Upload Dylib
-        uses: actions/upload-artifact@v5
-        with:
-          name: FolderPickerFix-dylib
-          path: .theos/obj/**/FolderPickerFix.dylib
+      - name: Update Repo Folder
+        run: |
+          mkdir -p repo/debs
+          find . -path "*/packages/*.deb" -exec cp {} repo/debs/ \;
+          if [ -f Release ]; then cp Release repo/; fi
+          cd repo
+          dpkg-scanpackages -m debs /dev/null > Packages
+          bzip2 -c9 Packages > Packages.bz2
+          gzip -c9 Packages > Packages.gz
 
-  download:
-    needs: build
-    runs-on: macos-latest
-    steps:
-      - name: Download Dylib
-        uses: actions/download-artifact@v5
-        with:
-          name: FolderPickerFix-dylib
-          path: ./downloaded-files
+      - name: Commit Deb Repo to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@://github.com"
+          git add repo/
+          git diff --staged --quiet || git commit -m "Update repo deb and Packages index"
+          git push
