@@ -1,0 +1,15 @@
+Package: com.custom.folderpickerfix
+Version: 1.0.0
+Architecture: iphoneos-arm64e
+Maintainer: Custom
+Installed-Size: 184
+Filename: debs/com.custom.folderpickerfix_1.0.0_iphoneos-arm64e.deb
+Size: 3328
+MD5sum: 3390faf5496eaef829b6a7935ec3b849
+SHA1: 608c5ff646d50df53383fb49eeccad013d2b4979
+SHA256: 07ad5bb28a36d93125bc39b5ca517f31b56eb773abc185e78078ce6daf90b8a1
+Section: Tweaks
+Description: Custom dylib for UIDocumentPickerViewController
+Author: Custom
+Name: FolderPickerFix
+
