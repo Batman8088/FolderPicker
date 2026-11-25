@@ -21,7 +21,9 @@ jobs:
 
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
-
+      
+      - name: Install Dependencies
+        run: brew install ldid
       - name: Compile Deb
         run: |
           MAKEFILE_DIR=$(dirname "$(find . -maxdepth 3 -name 'Makefile' | head -n 1)")
